@@ -2,6 +2,7 @@ package org.quarkus.starting.repo;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.PathParam;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.quarkus.starting.model.Book;
 
 import java.util.List;
@@ -13,10 +14,13 @@ import java.util.List;
 @ApplicationScoped
 public class BookRepository {
 
+    @ConfigProperty(name = "books.genre", defaultValue = "DEFAULT")
+    String genre;
+
     public List<Book> getAllBooks() {
         return List.of(
-                new Book(1, "Quarkus", "Balaji", 2023, "IT"),
-                new Book(2, "Automic Habits", "Balaji", 2013, "Psycology")
+                new Book(1, "Quarkus", "Balaji", 2023, genre),
+                new Book(2, "Automic Habits", "Balaji", 2013, genre)
         );
     }
 
